@@ -103,11 +103,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Slick Carousel
     if (typeof $ !== 'undefined' && typeof $.fn.slick === 'function') {
         $('.slick-carousel').slick({
-            dots: true, infinite: true, speed: 500, slidesToShow: 3, slidesToScroll: 1, centerMode: true,
-            centerPadding: '40px', autoplay: true, autoplaySpeed: 3000,
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            centerMode: true, // Base: centerMode activado
+            centerPadding: '40px', // Base: padding para efecto "ojeada"
+            autoplay: true,
+            autoplaySpeed: 3000,
             responsive: [
-                { breakpoint: 992, settings: { slidesToShow: 2, centerPadding: '30px' } },
-                { breakpoint: 576, settings: { slidesToShow: 1, centerMode: false } }
+                {
+                    breakpoint: 992, // Para tablets y móviles grandes
+                    settings: {
+                        slidesToShow: 2,
+                        centerMode: true, // Mantener centerMode
+                        centerPadding: '30px' // Ajustar padding si es necesario
+                    }
+                },
+                {
+                    breakpoint: 576, // Para móviles pequeños
+                    settings: {
+                        slidesToShow: 1,
+                        centerMode: true, // Activar centerMode para efecto "ojeada"
+                        centerPadding: '30px' // Padding para mostrar parte de slides adyacentes (ajustar al gusto)
+                    }
+                }
             ]
         });
     } else {
@@ -154,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 event.preventDefault();
                 openModal();
             });
-        } else if (openBtnId){ // Only warn if an ID was provided but not found
+        } else if (openBtnId){
             console.warn(`Botón de apertura no encontrado: ${openBtnId}`);
         }
 
@@ -357,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    handleMusicSuggestionForm(); // Initialize the music suggestion form handler
+    handleMusicSuggestionForm();
 
 
     // Google Calendar Link Generation
