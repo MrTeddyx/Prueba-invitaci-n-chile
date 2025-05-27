@@ -850,7 +850,7 @@ section.instagram .boton { margin-top: 0; }
     .hero-initials {
         font-size: 3.5rem;
         padding: 1px 10px 3px; /* MODIFICADO: Padding vertical móvil muy reducido */
-        height: 10px !important; /* MODIFICADO: Altura drástica para acercar líneas */
+        height: 65px !important; /* MODIFICADO: Altura drástica para acercar líneas */
         line-height: 10px;
         overflow: hidden;
     }
