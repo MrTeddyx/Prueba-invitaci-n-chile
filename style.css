@@ -120,7 +120,7 @@
   --color-anim-adorno-titulo-regalos: var(--color-pallete-2);
   --color-titulo-galeria: var(--color-pallete-1);
   --color-titulo-regalos: var(--color-pallete-1);
-  --color-subtitulo-galeria: var(--color-subtitulo-regalos);
+  --color-subtitulo-galeria: var(--color-pallete-2);
   --color-separador-hero: #eaeaea;
   --color-separador-secciones: #eee;
   --section-shadow-color: rgba(0, 0, 0, 0.30);
@@ -451,7 +451,7 @@ section.regalos .container {
 section.regalos .anim-adorno-titulo { width: 280px; max-width: 90%; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;}
 section.regalos .anim-adorno-titulo svg path { fill: var(--color-anim-adorno-titulo-regalos); stroke: var(--color-anim-adorno-titulo-regalos); stroke-width: 1.5px; }
 section.regalos .title { color: var(--color-titulo-regalos); }
-section.regalos .subtitle { color: var(--color-subtitulo-regalos); margin-bottom: 1rem; }
+section.regalos .subtitle { color: var(--color-pallete-2); margin-bottom: 1rem; }
 section.regalos .regalos-content { max-width: 600px; margin: 1rem auto; }
 section.regalos .regalos-content p { font-size: 1.05rem; line-height: 1.7; color: var(--color-pallete-5); }
 section.regalos .regalos-content strong { color: var(--color-pallete-1); }
