@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-
-    // Main Wedding Date for Countdown (Lima Event)
-    const weddingDate = new Date('Oct 18, 2025 17:00:00').getTime(); // Lima time for countdown
+    const weddingDate = new Date('Oct 18, 2025 17:00:00').getTime();
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
@@ -55,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (heartContainer) heartContainer.style.display = 'none';
     }
 
-    // Lottie Animations
     const loadLottieAnimation = (container, path, errorMessage, rendererSettings = {}) => {
         if (container) {
             try {
@@ -83,24 +80,21 @@ document.addEventListener('DOMContentLoaded', function() {
     loadLottieAnimation(document.querySelector('.anim-anillos'), 'img_ceremonia.json', "Error Lottie Anillos:");
     loadLottieAnimation(document.querySelector('.anim-fiesta'), 'img_fiesta.json', "Error Lottie Fiesta:");
     loadLottieAnimation(document.querySelector('.anim-galeria'), 'json_camara.json', "Error Lottie Galería:");
-    loadLottieAnimation(document.querySelector('.anim-musica'), 'img_musica.json', "Error Lottie Música:");
-    loadLottieAnimation(document.querySelector('.anim-musica-modal'), 'img_musica.json', "Error Lottie Música (Modal):");
     loadLottieAnimation(document.querySelector('.anim-vestuario'), 'vestuario.json', "Error Lottie Vestuario:");
     loadLottieAnimation(document.querySelector('.anim-tips'), 'tips.json', "Error Lottie Tips:");
     loadLottieAnimation(document.querySelector('.anim-regalos'), 'img_regalo.json', "Error Lottie Regalos:");
     loadLottieAnimation(document.querySelector('.anim-instagram'), 'img_instagram.json', "Error Lottie Instagram:");
     loadLottieAnimation(document.getElementById('lottie-adorno-galeria'), 'adorno-titulo.json', "Error Lottie Adorno Galeria:");
-    loadLottieAnimation(document.getElementById('lottie-adorno-fiesta'), 'adorno-titulo.json', "Error Lottie Adorno Fiesta:");
+    loadLottieAnimation(document.getElementById('lottie-adorno-recepcion'), 'adorno-titulo.json', "Error Lottie Adorno Recepcion:");
     loadLottieAnimation(document.getElementById('lottie-adorno-regalos'), 'adorno-titulo.json', "Error Lottie Adorno Regalos:");
     loadLottieAnimation(document.getElementById('lottie-adorno-instagram'), 'adorno-titulo.json', "Error Lottie Adorno Instagram:");
     loadLottieAnimation(document.querySelector('.anim-dresscode-modal'), 'vestuario.json', "Error Lottie Dress Code (Modal):");
     loadLottieAnimation(document.querySelector('.anim-tips-modal'), 'tips.json', "Error Lottie Tips (Modal):");
     loadLottieAnimation(document.querySelector('.anim-regalos-modal'), 'img_regalo.json', "Error Lottie Regalos (Modal):");
     loadLottieAnimation(document.getElementById('lottie-confirmar-ceremonia-anim'), 'img_ceremonia.json', "Error Lottie Confirmar Ceremonia:", { preserveAspectRatio: 'xMidYMid meet' });
-    loadLottieAnimation(document.getElementById('lottie-confirmar-fiesta-anim'), 'img_fiesta.json', "Error Lottie Confirmar Fiesta:", { preserveAspectRatio: 'xMidYMid meet' });
+    loadLottieAnimation(document.getElementById('lottie-confirmar-recepcion-anim'), 'img_fiesta.json', "Error Lottie Confirmar Recepcion:", { preserveAspectRatio: 'xMidYMid meet' });
     loadLottieAnimation(document.querySelector('.anim-instagram-modal'), 'img_instagram.json', "Error Lottie Instagram (Modal):");
 
-    // Slick Carousel
     if (typeof $ !== 'undefined' && typeof $.fn.slick === 'function') {
         $('.slick-carousel').slick({
             dots: true,
@@ -108,25 +102,25 @@ document.addEventListener('DOMContentLoaded', function() {
             speed: 500,
             slidesToShow: 3,
             slidesToScroll: 1,
-            centerMode: true, // Base: centerMode activado
-            centerPadding: '40px', // Base: padding para efecto "ojeada"
+            centerMode: true,
+            centerPadding: '40px',
             autoplay: true,
             autoplaySpeed: 3000,
             responsive: [
                 {
-                    breakpoint: 992, // Para tablets y móviles grandes
+                    breakpoint: 992,
                     settings: {
                         slidesToShow: 2,
-                        centerMode: true, // Mantener centerMode
-                        centerPadding: '30px' // Ajustar padding si es necesario
+                        centerMode: true,
+                        centerPadding: '30px'
                     }
                 },
                 {
-                    breakpoint: 576, // Para móviles pequeños
+                    breakpoint: 576,
                     settings: {
                         slidesToShow: 1,
-                        centerMode: true, // Activar centerMode para efecto "ojeada"
-                        centerPadding: '30px' // Padding para mostrar parte de slides adyacentes (ajustar al gusto)
+                        centerMode: true,
+                        centerPadding: '30px'
                     }
                 }
             ]
@@ -135,14 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Error: jQuery o Slick Carousel no están cargados ANTES de script.js.");
     }
 
-    // Fancybox
     if (typeof Fancybox !== 'undefined') {
         Fancybox.bind("[data-fancybox='galeria']", { loop: true });
     } else {
         console.warn("Fancybox no está cargado (opcional).");
     }
 
-    // Generic Modal Handling
     const setupModal = (modalId, openBtnId) => {
         const modal = document.getElementById(modalId);
         const openBtn = document.getElementById(openBtnId);
@@ -151,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const openModal = () => {
             if (modal) {
                 modal.style.display = 'flex';
-                void modal.offsetWidth; // Trigger reflow
+                void modal.offsetWidth;
                 modal.classList.add('visible');
                 document.body.classList.add('modal-open');
             }
@@ -192,17 +184,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return { openModal, closeModal };
     };
 
-    // Setup all modals
-    const musicaModalControls = setupModal('modal-musica', 'open-musica-modal');
     setupModal('modal-dresscode', 'open-dresscode-modal');
     setupModal('modal-tips', 'open-tips-modal');
     setupModal('modal-regalos', 'open-regalos-modal');
     const ceremoniaConfirmModalControls = setupModal('modal-confirmar-ceremonia', 'open-confirmar-ceremonia-modal');
-    const fiestaConfirmModalControls = setupModal('modal-confirmar-fiesta', 'open-confirmar-fiesta-modal');
+    const recepcionConfirmModalControls = setupModal('modal-confirmar-recepcion', 'open-confirmar-recepcion-modal');
     setupModal('modal-instagram-profiles', 'open-instagram-profiles-modal');
 
 
-    // Escape key to close modals
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             const visibleModal = document.querySelector('.modal-overlay.visible');
@@ -213,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Confirmation Form Handling
     const handleConfirmationForm = (formId, modalControls) => {
         const form = document.getElementById(formId);
         if (!form) {
@@ -299,89 +287,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('form-confirmar-ceremonia')) {
         handleConfirmationForm('form-confirmar-ceremonia', ceremoniaConfirmModalControls);
     }
-    if (document.getElementById('form-confirmar-fiesta')) {
-        handleConfirmationForm('form-confirmar-fiesta', fiestaConfirmModalControls);
+    if (document.getElementById('form-confirmar-recepcion')) {
+        handleConfirmationForm('form-confirmar-recepcion', recepcionConfirmModalControls);
     }
 
-    // Music Suggestion Form Handling
-    const handleMusicSuggestionForm = () => {
-        const form = document.getElementById('form-sugerir-musica');
-        if (!form) {
-            console.warn("Formulario de sugerencia de música no encontrado: form-sugerir-musica");
-            return;
-        }
-
-        const nombreInput = form.querySelector('#nombre_sugerencia');
-        const cancionAutorInput = form.querySelector('#cancion_autor');
-        const linkCancionInput = form.querySelector('#link_cancion');
-        const formMessage = form.querySelector('.form-message');
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            if (formMessage) {
-                formMessage.style.display = 'none';
-                formMessage.textContent = '';
-                formMessage.style.color = 'red';
-            }
-
-            const nombre = nombreInput.value.trim();
-            const cancionAutor = cancionAutorInput.value.trim();
-            const linkCancion = linkCancionInput.value.trim();
-
-            if (!nombre) {
-                if (formMessage) {
-                    formMessage.textContent = 'Por favor, ingresa tu nombre.';
-                    formMessage.style.display = 'block';
-                }
-                nombreInput.focus();
-                return;
-            }
-            if (!cancionAutor) {
-                if (formMessage) {
-                    formMessage.textContent = 'Por favor, ingresa el nombre de la canción y el autor.';
-                    formMessage.style.display = 'block';
-                }
-                cancionAutorInput.focus();
-                return;
-            }
-
-            const weddingEmail = 'matrimoniokathayjpsantiago@gmail.com';
-            const subject = `Sugerencia Musical Boda K&J - ${nombre}`;
-            let body = `Hola Katharine y Juan,\n\n${nombre} ha sugerido una canción para la boda:\n-------------------------------------\n`;
-            body += `Canción y Autor: ${cancionAutor}\n`;
-            if (linkCancion) {
-                body += `Link (opcional): ${linkCancion}\n`;
-            }
-            body += `-------------------------------------\n\n¡Que siga la música!`;
-
-            const mailtoLink = `mailto:${weddingEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-            if (formMessage) {
-                formMessage.textContent = 'Gracias por tu sugerencia. Serás redirigido a tu cliente de correo.';
-                formMessage.style.color = 'green';
-                formMessage.style.display = 'block';
-            }
-
-            setTimeout(() => {
-                window.location.href = mailtoLink;
-            }, 500);
-
-            setTimeout(() => {
-                if (musicaModalControls && musicaModalControls.closeModal) {
-                    musicaModalControls.closeModal();
-                }
-                form.reset();
-                if (formMessage) {
-                    formMessage.style.display = 'none';
-                }
-            }, 4000);
-        });
-    };
-
-    handleMusicSuggestionForm();
-
-
-    // Google Calendar Link Generation
     function generateGoogleCalendarLink(details) {
         const baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
         const params = new URLSearchParams();
@@ -404,17 +313,17 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const partyEventDetails = {
-        text: "Fiesta Boda K&J",
+        text: "Recepción Boda K&J",
         dates: "20250808T190000/20250808T235900",
         ctz: "America/Santiago",
-        details: "Nuestra Boda - Fiesta de Katharine y Juan\n¡A celebrar!",
+        details: "Nuestra Boda - Recepción de Katharine y Juan\n¡A celebrar!",
         location: "Restaurante LUSITANO, Condell 1414, Barrio Italia, Providencia, Santiago"
     };
 
     const agendarCeremoniaBtn = document.getElementById('agendar-ceremonia-btn');
-    const agendarFiestaBtn = document.getElementById('agendar-fiesta-btn');
+    const agendarRecepcionBtn = document.getElementById('agendar-recepcion-btn');
     const agendarCeremoniaFooterLink = document.getElementById('agendar-ceremonia-footer-link');
-    const agendarFiestaFooterLink = document.getElementById('agendar-fiesta-footer-link');
+    const agendarRecepcionFooterLink = document.getElementById('agendar-recepcion-footer-link');
 
     if (agendarCeremoniaBtn) {
         agendarCeremoniaBtn.addEventListener('click', (e) => {
@@ -422,8 +331,8 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open(generateGoogleCalendarLink(ceremonyEventDetails), '_blank');
         });
     }
-    if (agendarFiestaBtn) {
-        agendarFiestaBtn.addEventListener('click', (e) => {
+    if (agendarRecepcionBtn) {
+        agendarRecepcionBtn.addEventListener('click', (e) => {
             e.preventDefault();
             window.open(generateGoogleCalendarLink(partyEventDetails), '_blank');
         });
@@ -434,14 +343,13 @@ document.addEventListener('DOMContentLoaded', function() {
             window.open(generateGoogleCalendarLink(ceremonyEventDetails), '_blank');
         });
     }
-    if (agendarFiestaFooterLink) {
-        agendarFiestaFooterLink.addEventListener('click', (e) => {
+    if (agendarRecepcionFooterLink) {
+        agendarRecepcionFooterLink.addEventListener('click', (e) => {
             e.preventDefault();
             window.open(generateGoogleCalendarLink(partyEventDetails), '_blank');
         });
     }
 
-    // Footer Link Handlers
     const confirmarCeremoniaFooter = document.getElementById('confirmar-ceremonia-footer-link');
     const openConfirmarCeremoniaBtn = document.getElementById('open-confirmar-ceremonia-modal');
     if (confirmarCeremoniaFooter && openConfirmarCeremoniaBtn) {
@@ -451,21 +359,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const confirmarFiestaFooter = document.getElementById('confirmar-fiesta-footer-link');
-    const openConfirmarFiestaBtn = document.getElementById('open-confirmar-fiesta-modal');
-    if (confirmarFiestaFooter && openConfirmarFiestaBtn) {
-        confirmarFiestaFooter.addEventListener('click', (e) => {
+    const confirmarRecepcionFooter = document.getElementById('confirmar-recepcion-footer-link');
+    const openConfirmarRecepcionBtn = document.getElementById('open-confirmar-recepcion-modal');
+    if (confirmarRecepcionFooter && openConfirmarRecepcionBtn) {
+        confirmarRecepcionFooter.addEventListener('click', (e) => {
             e.preventDefault();
-            openConfirmarFiestaBtn.click();
-        });
-    }
-
-    const sugerirCancionFooter = document.getElementById('sugerir-cancion-footer-link');
-    const openMusicaBtn = document.getElementById('open-musica-modal');
-    if (sugerirCancionFooter && openMusicaBtn) {
-        sugerirCancionFooter.addEventListener('click', (e) => {
-            e.preventDefault();
-            openMusicaBtn.click();
+            openConfirmarRecepcionBtn.click();
         });
     }
 });
