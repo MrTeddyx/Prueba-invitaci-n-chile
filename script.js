@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const weddingDate = new Date('Oct 18, 2025 17:00:00').getTime();
+    const weddingDate = new Date('Aug 8, 2025 17:00:00 GMT-0500').getTime(); // Lima time (GMT-5) for August 8th
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
