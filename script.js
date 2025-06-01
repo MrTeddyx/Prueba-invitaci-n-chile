@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const weddingDate = new Date('Aug 8, 2025 17:00:00 GMT-0500').getTime(); // Lima time (GMT-5) for August 8th
+    const weddingDate = new Date('Aug 8, 2025 14:00:00 GMT-0500').getTime(); // Lima time (GMT-5) for August 8th, 2:00 PM
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
@@ -306,16 +306,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const ceremonyEventDetails = {
         text: "Ceremonia K&J",
-        dates: "20250808T120000/20250808T130000",
-        ctz: "America/Santiago",
+        dates: "20250808T140000/20250808T150000", // 2:00 PM to 3:00 PM Lima Time
+        ctz: "America/Lima",
         details: "Nuestra Boda - Ceremonia de Katharine y Juan\n¡Te esperamos!",
         location: "Registro Civil La Reina, Avenida Alcalde Fernando Castillo Velasco 8580, La Reina, Santiago"
     };
 
     const partyEventDetails = {
         text: "Recepción Boda K&J",
-        dates: "20250808T190000/20250808T235900",
-        ctz: "America/Santiago",
+        dates: "20250808T150000/20250808T235900", // 3:00 PM to 11:59 PM Lima Time
+        ctz: "America/Lima",
         details: "Nuestra Boda - Recepción de Katharine y Juan\n¡A celebrar!",
         location: "Restaurante LUSITANO, Condell 1414, Barrio Italia, Providencia, Santiago"
     };
