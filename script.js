@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Actualizado: Ceremonia a las 11:30 AM GMT-0500 (hora de Lima)
-    const weddingDate = new Date('Aug 8, 2025 11:30:00 GMT-0500').getTime();
+    // Ceremonia: Viernes 8 de Agosto del 2025, 11:30 AM (GMT-0400 Santiago Time)
+    // La variable weddingDate en este script está seteada a GMT-0500,
+    // si la web se ve en Chile (GMT-4 o GMT-3 dependiendo de DST), el countdown será diferente al local.
+    // Para consistencia con el script original, mantendremos GMT-0500 aquí,
+    // pero los eventos de Google Calendar usarán America/Santiago.
+    const weddingDate = new Date('Aug 8, 2025 11:30:00 GMT-0400').getTime(); // Ajustado a GMT-4 para Santiago
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
@@ -79,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadLottieAnimation(document.getElementById('lottie-adorno-frase'), 'adorno_frase_portada.json', "Error Lottie Adorno Frase:");
     loadLottieAnimation(document.getElementById('lottie-corazon-falta'), 'corazon-falta.json', "Error Lottie Corazon Falta:");
     loadLottieAnimation(document.querySelector('.anim-anillos'), 'img_ceremonia.json', "Error Lottie Anillos:");
-    loadLottieAnimation(document.querySelector('.anim-fiesta'), 'img_fiesta.json', "Error Lottie Fiesta:");
+    loadLottieAnimation(document.querySelector('.anim-fiesta'), 'img_fiesta.json', "Error Lottie Fiesta:"); // Icono de fiesta para recepción
     loadLottieAnimation(document.querySelector('.anim-galeria'), 'json_camara.json', "Error Lottie Galería:");
     loadLottieAnimation(document.querySelector('.anim-vestuario'), 'vestuario.json', "Error Lottie Vestuario:");
     loadLottieAnimation(document.querySelector('.anim-tips'), 'tips.json', "Error Lottie Tips:");
@@ -216,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const nombreInput = form.querySelector('input[name="nombre_asistencia"]');
         const comentarioInput = form.querySelector('input[name="comentario_asistencia"]');
         const eventoInput = form.querySelector('input[name="evento"]');
+        const submitButtons = form.querySelectorAll('button[type="submit"]'); // MODIFICADO: Get submit buttons
 
         attendanceButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -234,61 +239,88 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            if (formMessage) {
-                formMessage.style.display = 'none'; formMessage.textContent = ''; formMessage.style.color = 'red';
-            }
+        submitButtons.forEach(submitButton => { // MODIFICADO: Loop through submit buttons
+            submitButton.addEventListener('click', function(event) { // MODIFICADO: Changed to click event on button
+                event.preventDefault();
+                const submitType = this.value; // 'correo' or 'whatsapp'
 
-            if (!hiddenAttendanceInput || !hiddenAttendanceInput.value) {
-                 if (formMessage) {
-                    formMessage.textContent = 'Por favor, selecciona si asistirás o no.';
-                    formMessage.style.display = 'block';
-                }
-                return;
-            }
-            if (!nombreInput || !nombreInput.value.trim()) {
                 if (formMessage) {
-                    formMessage.textContent = 'Por favor, ingresa tu nombre completo.';
-                    formMessage.style.display = 'block';
+                    formMessage.style.display = 'none'; formMessage.textContent = ''; formMessage.style.color = 'red';
                 }
-                if(nombreInput) nombreInput.focus();
-                return;
-            }
 
-            const nombre = nombreInput.value.trim();
-            const asistenciaValue = hiddenAttendanceInput.value;
-            const asistenciaTexto = asistenciaValue === 'si' ? 'Sí, confirmo asistencia' : 'No podré asistir';
-            const comentario = comentarioInput ? comentarioInput.value.trim() : '';
-            const evento = eventoInput ? eventoInput.value : 'Evento';
-            const weddingEmail = 'matrimoniokathayjpsantiago@gmail.com';
-            const subject = `Confirmación Asistencia Boda K&J - ${evento}`;
-            let body = `Hola Katharine y Juan,\n\nUna nueva confirmación ha llegado:\n-------------------------------------\n`;
-            body += `Nombre: ${nombre}\nEvento: ${evento}\nAsistencia: ${asistenciaTexto}\n`;
-            if (comentario) body += `Comentario: ${comentario}\n`;
-            body += `-------------------------------------\n\nSaludos,\n${nombre}`;
-            const mailtoLink = `mailto:${weddingEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                if (!hiddenAttendanceInput || !hiddenAttendanceInput.value) {
+                     if (formMessage) {
+                        formMessage.textContent = 'Por favor, selecciona si asistirás o no.';
+                        formMessage.style.display = 'block';
+                    }
+                    return;
+                }
+                if (!nombreInput || !nombreInput.value.trim()) {
+                    if (formMessage) {
+                        formMessage.textContent = 'Por favor, ingresa tu nombre completo.';
+                        formMessage.style.display = 'block';
+                    }
+                    if(nombreInput) nombreInput.focus();
+                    return;
+                }
 
-            if (formMessage) {
-                formMessage.textContent = 'Gracias. Serás redirigido a tu cliente de correo para enviar la confirmación.';
-                formMessage.style.color = 'green'; formMessage.style.display = 'block';
-            }
+                const nombre = nombreInput.value.trim();
+                const asistenciaValue = hiddenAttendanceInput.value;
+                const asistenciaTexto = asistenciaValue === 'si' ? 'Sí, confirmo asistencia' : 'No podré asistir';
+                const comentario = comentarioInput ? comentarioInput.value.trim() : '';
+                const evento = eventoInput ? eventoInput.value : 'Evento Santiago'; // MODIFICADO: Default event name
+                const weddingEmail = 'matrimoniokathayjpsantiago@gmail.com';
+                const whatsappNumber = '51993968980';
 
-            setTimeout(() => { window.location.href = mailtoLink; }, 500);
-            setTimeout(() => {
-                if (modalControls && modalControls.closeModal) modalControls.closeModal();
-                form.reset();
-                attendanceButtons.forEach(btn => btn.classList.remove('selected'));
-                if (hiddenAttendanceInput) hiddenAttendanceInput.value = '';
-                if (formMessage) formMessage.style.display = 'none';
-            }, 4000);
+                if (submitType === 'correo') {
+                    const subject = `Confirmación Asistencia Boda K&JP - ${evento}`; // MODIFICADO
+                    let body = `Hola Katha y Juan Pablo,\n\nUna nueva confirmación ha llegado:\n-------------------------------------\n`; // MODIFICADO
+                    body += `Nombre: ${nombre}\nEvento: ${evento}\nAsistencia: ${asistenciaTexto}\n`;
+                    if (comentario) body += `Datos adicionales, alergias: ${comentario}\n`; // MODIFICADO
+                    body += `-------------------------------------\n\nSaludos,\n${nombre}`;
+                    const mailtoLink = `mailto:${weddingEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+                    if (formMessage) {
+                        formMessage.textContent = 'Gracias. Serás redirigido a tu cliente de correo para enviar la confirmación.';
+                        formMessage.style.color = 'green'; formMessage.style.display = 'block';
+                    }
+                    setTimeout(() => { window.location.href = mailtoLink; }, 500);
+
+                } else if (submitType === 'whatsapp') {
+                    let whatsappText = `¡Hola Katha y Juan Pablo! 👋\n\nQuiero confirmar mi asistencia para su boda:\n-------------------------------------\n`;
+                    whatsappText += `*Evento:* ${evento}\n`;
+                    whatsappText += `*Nombre:* ${nombre}\n`;
+                    whatsappText += `*Asistencia:* ${asistenciaTexto}\n`;
+                    if (comentario) {
+                        whatsappText += `*Datos adicionales, alergias:* ${comentario}\n`;
+                    }
+                    whatsappText += `-------------------------------------\n¡Nos vemos! 🎉`;
+
+                    const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(whatsappText)}`;
+
+                    if (formMessage) {
+                        formMessage.textContent = 'Gracias. Serás redirigido a WhatsApp para enviar la confirmación.';
+                        formMessage.style.color = 'green'; formMessage.style.display = 'block';
+                    }
+                    setTimeout(() => { window.open(whatsappLink, '_blank'); }, 500);
+                }
+
+
+                setTimeout(() => {
+                    if (modalControls && modalControls.closeModal) modalControls.closeModal();
+                    form.reset();
+                    attendanceButtons.forEach(btn => btn.classList.remove('selected'));
+                    if (hiddenAttendanceInput) hiddenAttendanceInput.value = '';
+                    if (formMessage) formMessage.style.display = 'none';
+                }, 4000);
+            });
         });
     };
 
     if (document.getElementById('form-confirmar-ceremonia')) {
         handleConfirmationForm('form-confirmar-ceremonia', ceremoniaConfirmModalControls);
     }
-    if (document.getElementById('form-confirmar-recepcion')) {
+    if (document.getElementById('form-confirmar-recepcion')) { // MODIFICADO para recepcion
         handleConfirmationForm('form-confirmar-recepcion', recepcionConfirmModalControls);
     }
 
@@ -305,20 +337,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${baseUrl}&${params.toString()}`;
     }
 
-    // Actualizado: Detalles para Google Calendar
+    const santiagoTimeZone = "America/Santiago"; // MODIFICADO: Timezone para Santiago
+
     const ceremonyEventDetails = {
-        text: "Ceremonia K&J",
-        dates: "20250808T113000/20250808T123000", // 11:30 AM to 12:30 PM Lima Time (asumiendo 1 hora de ceremonia)
-        ctz: "America/Lima",
-        details: "Nuestra Boda - Ceremonia de Katharine y Juan\n¡Te esperamos!",
+        text: "Ceremonia Boda K&JP - Santiago", // MODIFICADO
+        dates: "20250808T113000/20250808T123000",
+        ctz: santiagoTimeZone, // MODIFICADO
+        details: "Nuestra Boda - Ceremonia de Katha y Juan Pablo en Santiago\n¡Te esperamos!", // MODIFICADO
         location: "Registro Civil La Reina, Avenida Alcalde Fernando Castillo Velasco 8580, La Reina, Santiago"
     };
 
-    const partyEventDetails = {
-        text: "Recepción Boda K&J",
-        dates: "20250808T133000/20250808T235900", // 1:30 PM to 11:59 PM Lima Time
-        ctz: "America/Lima",
-        details: "Nuestra Boda - Recepción de Katharine y Juan\n¡A celebrar!",
+    const receptionEventDetails = { // MODIFICADO: de partyEventDetails a receptionEventDetails
+        text: "Recepción Boda K&JP - Santiago", // MODIFICADO
+        dates: "20250808T133000/20250808T235900",
+        ctz: santiagoTimeZone, // MODIFICADO
+        details: "Nuestra Boda - Recepción de Katha y Juan Pablo en Santiago\n¡A celebrar!", // MODIFICADO
         location: "Restaurante LUSITANO, Condell 1414, Barrio Italia, Providencia, Santiago"
     };
 
@@ -336,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (agendarRecepcionBtn) {
         agendarRecepcionBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            window.open(generateGoogleCalendarLink(partyEventDetails), '_blank');
+            window.open(generateGoogleCalendarLink(receptionEventDetails), '_blank'); // MODIFICADO
         });
     }
     if (agendarCeremoniaFooterLink) {
@@ -348,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (agendarRecepcionFooterLink) {
         agendarRecepcionFooterLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.open(generateGoogleCalendarLink(partyEventDetails), '_blank');
+            window.open(generateGoogleCalendarLink(receptionEventDetails), '_blank'); // MODIFICADO
         });
     }
 
